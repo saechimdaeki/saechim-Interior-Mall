@@ -11,3 +11,52 @@ eureka:
 spring:
   application:
     name: gatewayService
+  cloud:
+    gateway:
+      routes:
+        - id: homeService
+          uri: lb://HOMESERVICE
+          predicates:
+            - Path=/homeservice/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: categoryService
+          uri: lb://CATEGORYSERVICE
+          predicates:
+            - Path=/categoryservice/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: etcService
+          uri: lb://ETCSERVICE
+          predicates:
+            - Path=/etcservice/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: storyService
+          uri: lb://STORYSERVICE
+          predicates:
+            - Path=/storyservice/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: userService
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/userservice/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+
