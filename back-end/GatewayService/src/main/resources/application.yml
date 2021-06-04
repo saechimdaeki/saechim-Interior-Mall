@@ -59,4 +59,8 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
+token:
+  validity: 172800000
+  secretKey: saechimdaekiIsInstanceofcomputerJunseong
+
 

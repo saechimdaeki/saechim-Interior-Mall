@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8080
 
 spring:
   application:
@@ -11,7 +11,7 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       show_sql: true
       format_sql: true
@@ -24,3 +24,13 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8888/eureka
+
+logging:
+  level:
+    saechim.userservice.userservice.service: debug
+
+token:
+  validity: 172800000
+  secretKey: saechimdaekiIsInstanceofcomputerJunseong
+
+

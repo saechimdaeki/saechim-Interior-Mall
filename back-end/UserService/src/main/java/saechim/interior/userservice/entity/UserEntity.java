@@ -1,28 +1,30 @@
 package saechim.interior.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User implements Serializable {
+@DynamicUpdate
+public class UserEntity implements Serializable {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_no")
+    private Long no;
 
     @Size(min = 2, message = "2자 이상 입력")
     private String name;
@@ -40,12 +42,33 @@ public class User implements Serializable {
     @Column(nullable = false,unique = true)
     private String phoneNumber;
 
+    @Lob
+    @Nullable
+    private byte[] userPic;
+
+    @OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Coupon> coupons=new ArrayList<>();
+
     @Builder
-    public User(String name, String email, String userId, String encryptedPwd, String phoneNumber) {
+    public UserEntity(String name, String email, String userId, String encryptedPwd, String phoneNumber, byte[] userPic) {
         this.name = name;
         this.email = email;
         this.userId = userId;
         this.encryptedPwd = encryptedPwd;
         this.phoneNumber = phoneNumber;
+        this.userPic=userPic;
+    }
+
+    public void setUserProfileImage(byte[] userPic){
+        this.userPic=userPic;
+    }
+
+    public void addCoupons(List<Coupon> coupons){
+        this.coupons.addAll(coupons);
+    }
+
+    public void addCoupon(Coupon coupon){
+        this.coupons.add(coupon);
     }
 }

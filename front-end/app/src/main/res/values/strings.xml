@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SaechimInteriorApp</string>
+    <string name="Ipaddress">http://192.168.200.152:8080</string>
 </resources>
