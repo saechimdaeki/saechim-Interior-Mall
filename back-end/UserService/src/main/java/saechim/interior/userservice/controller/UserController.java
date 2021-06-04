@@ -10,17 +10,17 @@ import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.dto.UserResponseDto;
 import saechim.interior.userservice.entity.UserEntity;
 import saechim.interior.userservice.service.CouponService;
-import saechim.interior.userservice.service.UserServiceImpl;
+import saechim.interior.userservice.service.UserService;
 
 import javax.validation.Valid;
 import java.io.IOException;
 
-@RequestMapping("/userservice")
+@RequestMapping("/")
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
     private final CouponService couponService;
 
     @GetMapping("/hello")
@@ -30,24 +30,24 @@ public class UserController {
 
     @PostMapping("/join")
     public ResponseEntity<String> createUser(@Valid @RequestBody UserDto userDto){
-        userServiceImpl.JoinUser(userDto);
+        userService.JoinUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("회원 가입완료");
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserResponseDto> findByUserId(@PathVariable String userId){
-        return ResponseEntity.status(HttpStatus.OK).body(userServiceImpl.findByUserId(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByUserId(userId));
     }
 
     @PostMapping("/{userId}/upload")
     public ResponseEntity<UserEntity> uploadUserProfileImage(@PathVariable String userId, @RequestParam("file")MultipartFile file) throws IOException {
-        UserEntity userEntity = userServiceImpl.uploadPicture(userId, file);
+        UserEntity userEntity = userService.uploadPicture(userId, file);
         return ResponseEntity.ok(userEntity);
     }
 
     @GetMapping("/users")
     public ResponseEntity<?> findAllusers(){
-        return ResponseEntity.ok(userServiceImpl.findAllUserInfo());
+        return ResponseEntity.ok(userService.findAllUserInfo());
     }
 
     @PostMapping("/{userId}/coupon")

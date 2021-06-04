@@ -14,6 +14,15 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: user-service
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/userservice/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/userservice/(?<segment>.*), /$\{segment}
+
         - id: homeService
           uri: lb://HOMESERVICE
           predicates:
@@ -21,7 +30,7 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/homeservice/(?<segment>.*), /$\{segment}
 
         - id: categoryService
           uri: lb://CATEGORYSERVICE
@@ -30,7 +39,7 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/categoryservice/(?<segment>.*), /$\{segment}
 
         - id: etcService
           uri: lb://ETCSERVICE
@@ -39,7 +48,7 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/etcservice/(?<segment>.*), /$\{segment}
 
         - id: storyService
           uri: lb://STORYSERVICE
@@ -48,7 +57,7 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/storyservice/(?<segment>.*), /$\{segment}
 
         - id: userService
           uri: lb://USERSERVICE
@@ -57,7 +66,10 @@ spring:
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/userservice/(?<segment>.*), /$\{segment}
+
+
+
 
 token:
   validity: 172800000

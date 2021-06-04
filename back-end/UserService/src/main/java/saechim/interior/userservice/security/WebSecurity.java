@@ -21,11 +21,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {  //권한
-       // http.csrf().disable();
+        http.csrf().disable();
         http.authorizeRequests().antMatchers("/**").permitAll()
-//                .access("hasIpAddress('192.168.200.152')" +
-//                        " or hasIpAddress('172.30.1.31')") //집앞 카페 ip..
-//                .hasIpAddress("192.168.200.118") //통과시키고 싶은 IP
                 .and()
                 .addFilter(getAuthenticationFilter());
 

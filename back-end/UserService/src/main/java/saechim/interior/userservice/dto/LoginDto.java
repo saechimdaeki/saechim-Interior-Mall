@@ -11,5 +11,5 @@ public class LoginDto {
     private String userId;
 
     @NotBlank(message = "Password cannot be empty")
-    private String password;
+    private String pwd;
 }

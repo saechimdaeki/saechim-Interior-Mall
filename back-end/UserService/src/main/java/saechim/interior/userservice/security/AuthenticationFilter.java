@@ -12,12 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import saechim.interior.userservice.dto.RequestLogin;
+import saechim.interior.userservice.dto.LoginDto;
 import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.service.UserService;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -42,9 +41,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) throws AuthenticationException {
 
         try {
-            RequestLogin creds = new ObjectMapper().readValue(request.getInputStream(), RequestLogin.class);
+            LoginDto creds = new ObjectMapper().readValue(request.getInputStream(), LoginDto.class);
 
-            return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(),creds.getPassword(),new ArrayList<>()));
+            return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUserId(),creds.getPwd(),new ArrayList<>()));
 
         }catch (IOException e){
             throw new RuntimeException(e);
@@ -55,19 +54,22 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+                                            Authentication authResult)  {
         log.debug("\n =====successAuthentication==={}",((User)authResult.getPrincipal()).getUsername());
+
         String username= ((User)authResult.getPrincipal()).getUsername();
         UserDto userDetails = userService.findByUserEmail(username);
 
-//        String token = Jwts.builder()
-//                .setSubject(userDetails.getUserId())
-//                .setExpiration(new Date(System.currentTimeMillis() +
-//                        Long.parseLong(Objects.requireNonNull(env.getProperty("token.expiration_time")))))
-//                .signWith(SignatureAlgorithm.HS256, env.getProperty("token.secret")) //암호화
-//                .compact();
-//
-//        response.addHeader("token", token);
-//        response.addHeader("userId", userDetails.getUserId());
+        String token = Jwts.builder()
+                .setSubject(userDetails.getUserId())
+                .setExpiration(new Date(System.currentTimeMillis() +
+                        Long.parseLong(Objects.requireNonNull(env.getProperty("token.validity")))))
+                .signWith(SignatureAlgorithm.HS256, env.getProperty("token.secretKey"))
+                .compact();
+
+        response.addHeader("jwttoken", token);
+        response.addHeader("userId", userDetails.getUserId());
+        response.addHeader("computer","junseong");
+        response.addHeader("github","saechimdaeki");
     }
 }

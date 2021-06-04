@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 0
 
 spring:
   application:
@@ -31,6 +31,6 @@ logging:
 
 token:
   validity: 172800000
-  secretKey: saechimdaekiIsInstanceofcomputerJunseong
+  secretKey: saechimdaekiIsInstanceofcomputerJunseongabcdefghijklmnopqrstuvwxyz
 
 
