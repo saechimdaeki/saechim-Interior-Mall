@@ -50,6 +50,8 @@ public class UserEntity implements Serializable {
     @JsonManagedReference
     private List<Coupon> coupons=new ArrayList<>();
 
+
+
     @Builder
     public UserEntity(String name, String email, String userId, String encryptedPwd, String phoneNumber, byte[] userPic) {
         this.name = name;
@@ -71,4 +73,6 @@ public class UserEntity implements Serializable {
     public void addCoupon(Coupon coupon){
         this.coupons.add(coupon);
     }
+
+
 }

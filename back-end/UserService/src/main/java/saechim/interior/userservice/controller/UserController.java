@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<?> findAllusers(){
+    public ResponseEntity<?> findAllUsers(){
         return ResponseEntity.ok(userService.findAllUserInfo());
     }
 
@@ -61,5 +61,11 @@ public class UserController {
     public ResponseEntity<?> findAllCoupons(){
         return ResponseEntity.ok(couponService.findAllCoupon());
     }
+
+    @GetMapping("/post/{userId}")
+    public ResponseEntity<?> addPostId(@PathVariable String userId){
+        return ResponseEntity.ok(userService.findPostByUserId(userId));
+    }
+
 
 }

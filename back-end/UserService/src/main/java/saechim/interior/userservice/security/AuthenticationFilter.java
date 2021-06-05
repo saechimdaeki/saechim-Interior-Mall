@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import saechim.interior.userservice.dto.LoginDto;
 import saechim.interior.userservice.dto.UserDto;
+import saechim.interior.userservice.dto.UserResponseDto;
 import saechim.interior.userservice.service.UserService;
 
 import javax.servlet.FilterChain;
@@ -58,7 +59,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         log.debug("\n =====successAuthentication==={}",((User)authResult.getPrincipal()).getUsername());
 
         String username= ((User)authResult.getPrincipal()).getUsername();
-        UserDto userDetails = userService.findByUserEmail(username);
+        UserResponseDto userDetails = userService.findByUserId(username);
 
         String token = Jwts.builder()
                 .setSubject(userDetails.getUserId())

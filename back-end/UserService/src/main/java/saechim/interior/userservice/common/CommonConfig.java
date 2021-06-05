@@ -1,5 +1,6 @@
 package saechim.interior.userservice.common;
 
+import feign.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,5 +17,10 @@ public class CommonConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Logger.Level feignLoggerLevel(){
+        return Logger.Level.FULL;
     }
 }

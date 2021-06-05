@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import saechim.interior.userservice.cleint.StoryServiceClient;
+import saechim.interior.userservice.dto.ResponseMyPostDto;
 import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.dto.UserResponseDto;
 import saechim.interior.userservice.entity.UserEntity;
@@ -28,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper mapper;
+    private final StoryServiceClient storyServiceClient;
 
     @Transactional
     public void JoinUser(UserDto userDto){
@@ -40,7 +43,6 @@ public class UserService implements UserDetailsService {
                 .build();
         userRepository.save(userEntity);
 
-        //TODO
     }
 
     public UserResponseDto findByUserId(String userId){
@@ -68,14 +70,20 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> userEntity = userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        Optional<UserEntity> userEntity = userRepository.findByUserId(userId);
 
         if(userEntity.isEmpty())
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(userId);
         UserEntity user=userEntity.get();
 
-        return new User(user.getEmail(),user.getEncryptedPwd(),
+        return new User(user.getUserId(),user.getEncryptedPwd(),
                 true,true,true,true, new ArrayList<>()/* */ );
     }
+
+    public List<ResponseMyPostDto> findPostByUserId(String userId){
+        return storyServiceClient.getUsersPost(userId);
+    }
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -29,21 +30,19 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     }
 
-    // login -> token -> users (with token) -> header(include token)
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
             if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                return onError(exchange, "No authorization header", HttpStatus.UNAUTHORIZED);
+                return onError(exchange, "No authorization header");
             }
-
             String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
             String jwt = authorizationHeader.replace("Bearer","");
 
             if(!isJwtValid(jwt)){
-                return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
+                return onError(exchange, "JWT token is not valid");
             }
 
             return chain.filter(exchange);
@@ -62,20 +61,16 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         }catch (Exception ex){
             returnValue=false;
         }
-        if(subject==null || subject.isEmpty()) returnValue=false;
+        if(!StringUtils.hasText(subject)) returnValue=false;
 
         return returnValue;
     }
 
-    // Mono, Flux -> Spring WebFlux
-    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
+    private Mono<Void> onError(ServerWebExchange exchange, String err) {
         ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(httpStatus);
+        response.setStatusCode(HttpStatus.UNAUTHORIZED);
 
         log.error(err);
         return response.setComplete();
-
     }
-
-
 }

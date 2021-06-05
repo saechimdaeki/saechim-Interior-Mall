@@ -25,8 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/**").permitAll()
                 .and()
                 .addFilter(getAuthenticationFilter());
-
-        //http.headers().frameOptions().disable();
+        http.headers().frameOptions().disable();
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
@@ -36,9 +35,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return authenticationFilter;
     }
 
-
-    // select pwd from users where email = ?
-    // db.pwd(encrypted)== input_pwd(encrypted)
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { //인증
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);

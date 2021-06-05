@@ -63,16 +63,26 @@ spring:
           uri: lb://USERSERVICE
           predicates:
             - Path=/userservice/**
-            - Method=GET,POST
+            - Method= POST
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/userservice/(?<segment>.*), /$\{segment}
+
+        - id: userService
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/userservice/**
+            - Method= GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/userservice/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
 
 
 
 token:
   validity: 172800000
-  secretKey: saechimdaekiIsInstanceofcomputerJunseong
+  secretKey: saechimdaekiIsInstanceofcomputerJunseongabcdefghijklmnopqrstuvwxyz
 
 
