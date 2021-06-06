@@ -32,8 +32,10 @@ public class Post {
 
     private Long postView=0L;
 
+
     @ElementCollection
-    private final List<byte[]> postImages=new ArrayList<>();
+    @Column(length = 16050379)
+    private List<byte[]> postImages=new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "post")
     @JsonManagedReference
@@ -48,11 +50,15 @@ public class Post {
         this.postView = postView;
     }
 
-    private void addViewCount(){
+    public void addViewCount(){
         this.postView++;
     }
 
-    private void addImages(List<byte[]> images){
+    public void addImages(List<byte[]> images){
         this.postImages.addAll(images);
+    }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
     }
 }

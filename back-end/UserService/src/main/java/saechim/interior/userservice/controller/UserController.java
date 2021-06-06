@@ -13,6 +13,7 @@ import saechim.interior.userservice.service.CouponService;
 import saechim.interior.userservice.service.UserService;
 
 import javax.validation.Valid;
+import javax.ws.rs.Path;
 import java.io.IOException;
 
 @RequestMapping("/")
@@ -65,6 +66,11 @@ public class UserController {
     @GetMapping("/post/{userId}")
     public ResponseEntity<?> addPostId(@PathVariable String userId){
         return ResponseEntity.ok(userService.findPostByUserId(userId));
+    }
+
+    @GetMapping("/postdetail/{id}")
+    public ResponseEntity<?> getPost(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getPostDetails(id));
     }
 
 

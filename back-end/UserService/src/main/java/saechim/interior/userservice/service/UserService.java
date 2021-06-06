@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import saechim.interior.userservice.cleint.StoryServiceClient;
+import saechim.interior.userservice.dto.PostDetailDto;
 import saechim.interior.userservice.dto.ResponseMyPostDto;
 import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.dto.UserResponseDto;
@@ -65,7 +66,7 @@ public class UserService implements UserDetailsService {
 
         if(userEntity.isEmpty()) throw new UsernameNotFoundException(email);
 
-        return new ModelMapper().map(userEntity.get(),UserDto.class);
+        return mapper.map(userEntity.get(),UserDto.class);
     }
 
 
@@ -85,5 +86,7 @@ public class UserService implements UserDetailsService {
         return storyServiceClient.getUsersPost(userId);
     }
 
-
+    public PostDetailDto getPostDetails(Long id){
+        return storyServiceClient.getPostDetails(id);
+    }
 }

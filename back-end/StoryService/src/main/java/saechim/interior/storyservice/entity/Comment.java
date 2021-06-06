@@ -19,7 +19,7 @@ public class Comment {
 
     private String userId;
 
-    private String Content;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -29,6 +29,10 @@ public class Comment {
     @Builder
     public Comment(String userId, String content) {
         this.userId = userId;
-        Content = content;
+        this.content = content;
+    }
+
+    public void setPost(Post post){
+        this.post=post;
     }
 }
