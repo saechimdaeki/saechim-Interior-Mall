@@ -2,6 +2,14 @@ package saechim.interiror.saechiminteriorapp.model;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor @Builder
 public class Coupon {
     private Long id;
 
@@ -11,19 +19,4 @@ public class Coupon {
 
     private LocalDateTime createDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getCouponName() {
-        return couponName;
-    }
-
-    public String getCouponDescription() {
-        return couponDescription;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
 }

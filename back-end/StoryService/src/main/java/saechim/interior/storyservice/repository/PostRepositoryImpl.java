@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static saechim.interior.storyservice.entity.QComment.comment;
-import static saechim.interior.storyservice.entity.QPost.*;
+import static saechim.interior.storyservice.entity.QPost.post;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 

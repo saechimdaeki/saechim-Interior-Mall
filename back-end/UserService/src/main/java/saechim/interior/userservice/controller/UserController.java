@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import saechim.interior.userservice.dto.CouponDto;
+import saechim.interior.userservice.dto.LoginDto;
 import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.dto.UserResponseDto;
 import saechim.interior.userservice.entity.UserEntity;
@@ -72,6 +73,8 @@ public class UserController {
     public ResponseEntity<?> getPost(@PathVariable Long id){
         return ResponseEntity.ok(userService.getPostDetails(id));
     }
+
+
 
 
 }

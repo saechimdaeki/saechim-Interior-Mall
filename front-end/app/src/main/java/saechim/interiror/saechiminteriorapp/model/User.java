@@ -2,6 +2,13 @@ package saechim.interiror.saechiminteriorapp.model;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter @AllArgsConstructor @Builder
 public class User {
 
     private Long no;
@@ -20,35 +27,4 @@ public class User {
 
     private List<Coupon> coupons;
 
-    public Long getNo() {
-        return no;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getEncryptedPwd() {
-        return encryptedPwd;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getUserPic() {
-        return userPic;
-    }
-
-    public List<Coupon> getCoupons() {
-        return coupons;
-    }
 }
