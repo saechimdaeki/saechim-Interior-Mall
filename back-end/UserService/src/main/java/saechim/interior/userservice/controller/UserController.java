@@ -57,7 +57,10 @@ public class UserController {
         couponService.giveToCoupon(userId,couponDto);
         return ResponseEntity.ok("쿠폰을 받았씁니다");
     }
-
+    @GetMapping("/{userId}/coupons")
+    public ResponseEntity<?> getCouponsByUserId(@PathVariable String userId){
+        return ResponseEntity.ok(userService.findCouponListByUserId(userId));
+    }
 
     @GetMapping("/coupons")
     public ResponseEntity<?> findAllCoupons(){

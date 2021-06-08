@@ -15,6 +15,7 @@ import saechim.interior.userservice.dto.PostDetailDto;
 import saechim.interior.userservice.dto.ResponseMyPostDto;
 import saechim.interior.userservice.dto.UserDto;
 import saechim.interior.userservice.dto.UserResponseDto;
+import saechim.interior.userservice.entity.Coupon;
 import saechim.interior.userservice.entity.UserEntity;
 import saechim.interior.userservice.repository.UserRepository;
 
@@ -88,5 +89,9 @@ public class UserService implements UserDetailsService {
 
     public PostDetailDto getPostDetails(Long id){
         return storyServiceClient.getPostDetails(id);
+    }
+
+    public List<Coupon> findCouponListByUserId(String userId){
+        return userRepository.findCouponsByUserId(userId);
     }
 }

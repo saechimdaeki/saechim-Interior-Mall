@@ -17,6 +17,6 @@ public class Coupon {
 
     private String couponDescription;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
 }

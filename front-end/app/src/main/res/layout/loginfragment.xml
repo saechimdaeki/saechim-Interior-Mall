@@ -12,9 +12,11 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/bingrae"
         android:textAlignment="center"
-        android:text="Saechim Interior Mall!!!!"
+        android:text="Saechim Interior Mall"
         android:textColor="#8BC34A"
         android:textSize="30sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center_horizontal" />
 
 
@@ -30,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/edit_login"
-
+        android:layout_margin="14dp"
         android:hint="아이디 입력"
         />
 
@@ -38,14 +40,18 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/edit_pwd"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:hint="패스워드 입력"
         />
     <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/btnLogIn"
+        android:layout_marginTop="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="로그인"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         custom:pb_colorComplete="@color/green_complete"

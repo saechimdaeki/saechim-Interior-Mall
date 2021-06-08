@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         setFrame(1);
                         break;
                     case R.id.action_mypage:
-                        if(!isLogin)
-                            setFrame(5);
-                        else
-                            setFrame(2);
+                        setFrame(!isLogin ? 5 : 2);
                         break;
                     case R.id.action_story:
                         setFrame(3);
@@ -89,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setFrame(0);
 
     }
-    private void setFrame(int n){
+    public void setFrame(int n){
         fm=getSupportFragmentManager();
         ft=fm.beginTransaction();
         switch (n){

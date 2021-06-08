@@ -1,4 +1,4 @@
-package saechim.interior.userservice.dto;
+package saechim.interiror.saechiminteriorapp.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +18,5 @@ public class UserResponseDto {
 
     private String phoneNumber;
 
-    private byte[] userImage;
+    private String userImage; //byte
 }
