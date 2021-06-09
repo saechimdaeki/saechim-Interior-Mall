@@ -2,6 +2,8 @@ package saechim.interior.userservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -47,11 +49,13 @@ public class UserService implements UserDetailsService {
 
     }
 
+    @Cacheable(value = "userinfo",key = "#userId")
     public UserResponseDto findByUserId(String userId){
         return userRepository.findByUserIdForResponse(userId);
     }
 
     @Transactional
+    @CacheEvict(value = "userinfo",key = "#userId")
     public UserEntity uploadPicture(String userId, MultipartFile file) throws IOException {
         UserEntity userEntity = userRepository.findByUserId(userId).orElseThrow(RuntimeException::new);
         userEntity.setUserProfileImage(file.getBytes());
@@ -87,6 +91,7 @@ public class UserService implements UserDetailsService {
         return storyServiceClient.getUsersPost(userId);
     }
 
+    @Cacheable(value = "postid", key = "#id")
     public PostDetailDto getPostDetails(Long id){
         return storyServiceClient.getPostDetails(id);
     }

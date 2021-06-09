@@ -17,8 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.gifdecoder.GifDecoder;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -39,9 +43,19 @@ public class MyPageFrag extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     String id;
+    private int someVarA;
+    private String someVarB;
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null) {
+            someVarA = savedInstanceState.getInt("someVarA");
+            someVarB = savedInstanceState.getString("someVarB");
+        }
+        Toast.makeText(getActivity(), someVarA+someVarB, Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
@@ -57,40 +71,64 @@ public class MyPageFrag extends Fragment {
         id=pref.getString("id","nono_id");
         retrofitService= RetrofitFactory.create();
 
-        retrofitService.getUserInfoByUserID(RetrofitFactory.jwtToken,id).enqueue(new Callback<UserResponseDto>() {
+      getCouponsBuUserId();
+      getUserInfoByUserId();
+        return view;
+
+    }
+
+
+
+    private void getUserInfoByUserId() {
+        retrofitService.getUserInfoByUserID(RetrofitFactory.jwtToken, id).enqueue(new Callback<UserResponseDto>() {
             @Override
             public void onResponse(Call<UserResponseDto> call, Response<UserResponseDto> response) {
                 UserResponseDto body = response.body();
-                byte[] imageByte = Base64.decode(body.getUserImage(),Base64.DEFAULT);
+
+                byte[] imageByte = Objects.equals(body.getUserImage(), null) ? null :
+                        Base64.decode(body.getUserImage(), Base64.DEFAULT);
+                if(body.getUserImage() != null) {
+                    editor.putString("userImage", body.getUserImage());
+                    editor.apply();
+                }
                 idTextView.setText(body.getUserId());
-                Glide.with(getActivity()).load(imageByte).into(userProfileImage);
+
+                Glide.with(getActivity()).load(imageByte)
+                        .error(R.drawable.kinopico).into(userProfileImage);
+
             }
 
             @Override
             public void onFailure(Call<UserResponseDto> call, Throwable t) {
-                Log.e("오류",call.request().url().toString());
+                Log.e("오류", call.request().url().toString());
 
             }
         });
+    }
 
-
-        retrofitService.getCouponsByUserId(RetrofitFactory.jwtToken,id).enqueue(new Callback<List<Coupon>>() {
+    private void getCouponsBuUserId() {
+        retrofitService.getCouponsByUserId(RetrofitFactory.jwtToken, id).enqueue(new Callback<List<Coupon>>() {
             @Override
             public void onResponse(Call<List<Coupon>> call, Response<List<Coupon>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Coupon> body = response.body();
                     couponCountTextView.setText(String.valueOf(body.size()));
-                    //couponCountTextView.setText(response.body().size());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Coupon>> call, Throwable t) {
-                Log.e("오류",call.request().url().toString());
+                Log.e("오류", call.request().url().toString());
                 Toast.makeText(getActivity(), "통신 실패", Toast.LENGTH_SHORT).show();
             }
         });
-        return view;
-
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("someVarA", 1);
+        outState.putString("someVarB", "123");
+    }
+
 }

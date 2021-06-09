@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -54,28 +55,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomNavigationView=findViewById(R.id.bottomNavi);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        setFrame(0);
-                        break;
-                    case R.id.action_category:
-                        setFrame(1);
-                        break;
-                    case R.id.action_mypage:
-                        setFrame(!isLogin ? 5 : 2);
-                        break;
-                    case R.id.action_story:
-                        setFrame(3);
-                        break;
-                    case R.id.action_etc:
-                        setFrame(4);
-                        break;
-                }
-                return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    setFrame(0);
+                    break;
+                case R.id.action_category:
+                    setFrame(1);
+                    break;
+                case R.id.action_mypage:
+                    setFrame(!isLogin ? 5 : 2);
+                    break;
+                case R.id.action_story:
+                    setFrame(3);
+                    break;
+                case R.id.action_etc:
+                    setFrame(4);
+                    break;
             }
+            return true;
         });
         homeFrag=new HomeFrag();
         categoryFrag=new CategoryFrag();
@@ -83,12 +81,14 @@ public class MainActivity extends AppCompatActivity {
         storyFrag=new StoryFrag();
         etcFrag=new EtcFrag();
         loginFrag=new LoginFrag();
-        setFrame(0);
+
+       setFrame(0);
 
     }
     public void setFrame(int n){
         fm=getSupportFragmentManager();
         ft=fm.beginTransaction();
+
         switch (n){
             case 0:
                 ft.replace(R.id.main_frame,homeFrag);
@@ -116,4 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 }
