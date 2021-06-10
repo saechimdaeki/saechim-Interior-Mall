@@ -14,6 +14,10 @@ spring:
     properties:
       show_sql: true
       format_sql: true
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
 
 eureka:
   instance:

@@ -1,6 +1,7 @@
 package saechim.interiror.saechiminteriorapp.screen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,19 +45,15 @@ public class MyPageFrag extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     String id;
-    private int someVarA;
-    private String someVarB;
+ 
+
 
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null) {
-            someVarA = savedInstanceState.getInt("someVarA");
-            someVarB = savedInstanceState.getString("someVarB");
-        }
-        Toast.makeText(getActivity(), someVarA+someVarB, Toast.LENGTH_SHORT).show();
+
     }
 
     @Nullable
@@ -68,11 +66,14 @@ public class MyPageFrag extends Fragment {
         couponCountTextView=view.findViewById(R.id.couponCount);
         pref=getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         editor=pref.edit();
-        id=pref.getString("id","nono_id");
-        retrofitService= RetrofitFactory.create();
-
-      getCouponsBuUserId();
-      getUserInfoByUserId();
+        id=pref.getString("id",null);
+        if(savedInstanceState==null) {
+            Intent intent=new Intent(getActivity(),LoadingActivity.class);
+            startActivity(intent);
+        }
+        retrofitService = RetrofitFactory.create();
+        getCouponsBuUserId();
+        getUserInfoByUserId();
         return view;
 
     }
@@ -113,6 +114,7 @@ public class MyPageFrag extends Fragment {
                 if (response.isSuccessful()) {
                     List<Coupon> body = response.body();
                     couponCountTextView.setText(String.valueOf(body.size()));
+                    editor.putString("coupon",couponCountTextView.getText().toString());
                 }
             }
 
