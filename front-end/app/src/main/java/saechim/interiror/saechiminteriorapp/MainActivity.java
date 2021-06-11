@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import saechim.interiror.saechiminteriorapp.retrofit.RetrofitService;
 import saechim.interiror.saechiminteriorapp.screen.CategoryFrag;
 import saechim.interiror.saechiminteriorapp.screen.EtcFrag;
 import saechim.interiror.saechiminteriorapp.screen.HomeFrag;
+import saechim.interiror.saechiminteriorapp.screen.LoadingActivity;
 import saechim.interiror.saechiminteriorapp.screen.LoginFrag;
 import saechim.interiror.saechiminteriorapp.screen.MyPageFrag;
 import saechim.interiror.saechiminteriorapp.screen.StoryFrag;
