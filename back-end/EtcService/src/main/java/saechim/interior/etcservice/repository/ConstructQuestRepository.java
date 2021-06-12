@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import saechim.interior.etcservice.entity.ConstructQuest;
 
 @Repository
-public interface ConsturctQuestRepository extends JpaRepository<ConstructQuest,Long>,CustomConstructQuest {
+public interface ConstructQuestRepository extends JpaRepository<ConstructQuest,Long>,CustomConstructQuest {
 }

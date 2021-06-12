@@ -10,13 +10,21 @@ public class QuestDto {
 
     private String questContent;
 
-    private UserInfo userInfo;
+    private String name;
+
+    private String email;
+
+    private String phoneNumber;
 
     public static ConstructQuest toEntity(QuestDto dto){
         return ConstructQuest.builder()
                 .title(dto.title)
                 .questContent(dto.questContent)
-                .userInfo(dto.userInfo)
+                .userInfo(UserInfo.builder()
+                        .email(dto.email)
+                        .name(dto.name)
+                        .phoneNumber(dto.phoneNumber)
+                        .build())
                 .build();
     }
 }

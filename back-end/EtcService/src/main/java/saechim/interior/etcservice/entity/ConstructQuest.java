@@ -29,6 +29,9 @@ public class ConstructQuest {
     private UserInfo userInfo;
 
     @ElementCollection
+    private List<String> strings=new ArrayList<>();
+
+    @ElementCollection
     @Column(length = 16050379)
     private List<byte[]> questImage=new ArrayList<>(); /* 사진첨부는 세장만 하자 (프론트에서 처리) */
 

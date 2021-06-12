@@ -11,17 +11,18 @@ import org.springframework.web.multipart.MultipartFile;
 import saechim.interior.etcservice.dto.QuestDto;
 import saechim.interior.etcservice.dto.ResponseQuestDto;
 import saechim.interior.etcservice.entity.ConstructQuest;
-import saechim.interior.etcservice.repository.ConsturctQuestRepository;
+import saechim.interior.etcservice.repository.ConstructQuestRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
 public class QuestService {
-    private final ConsturctQuestRepository consturctQuestRepository;
+    private final ConstructQuestRepository consturctQuestRepository;
     private final ModelMapper mapper;
 
     @Transactional
@@ -43,6 +44,6 @@ public class QuestService {
     }
 
     public Page<ResponseQuestDto> retrieveRequestQuestList(Pageable pageable){
-        return consturctQuestRepository.findAllQuestList(pageable);
+        return consturctQuestRepository.retrieveQuestList(pageable);
     }
 }
