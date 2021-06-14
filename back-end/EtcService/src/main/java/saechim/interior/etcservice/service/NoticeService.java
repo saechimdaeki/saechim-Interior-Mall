@@ -2,7 +2,10 @@ package saechim.interior.etcservice.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,7 @@ import saechim.interior.etcservice.repository.NoticeRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static saechim.interior.etcservice.entity.QConstructQuest.constructQuest;
 
@@ -32,6 +36,11 @@ public class NoticeService {
         noticeRepository.save(notice);
         return notice.getTitle();
     }
+
+    public Page<Notice> getNotices(Pageable pageable){
+        return noticeRepository.findAll(pageable);
+    }
+
 
     @Transactional(rollbackFor = RuntimeException.class)
     public ResponseNoticeDto addPictures(Long noticeId, MultipartFile[] files) throws IOException {

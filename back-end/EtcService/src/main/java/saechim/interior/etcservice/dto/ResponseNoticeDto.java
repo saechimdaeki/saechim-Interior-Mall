@@ -11,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor @Builder
 @Data
 public class ResponseNoticeDto {
+    private Long id;
+
     private String title;
 
     private String content;
