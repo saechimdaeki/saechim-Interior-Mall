@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -25,5 +26,6 @@ public class LoadingActivity extends AppCompatActivity {
     private void startLoading() {
         Handler handler = new Handler();
         handler.postDelayed(this::finish, 550);
+
     }
 }

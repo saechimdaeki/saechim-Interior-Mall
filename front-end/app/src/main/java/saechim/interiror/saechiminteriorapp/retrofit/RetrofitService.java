@@ -14,6 +14,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import saechim.interiror.saechiminteriorapp.dto.LoginDto;
+import saechim.interiror.saechiminteriorapp.dto.PostDetailDto;
+import saechim.interiror.saechiminteriorapp.dto.ResponseMyPostDto;
 import saechim.interiror.saechiminteriorapp.model.Coupon;
 import saechim.interiror.saechiminteriorapp.model.User;
 import saechim.interiror.saechiminteriorapp.model.UserResponseDto;
@@ -31,4 +33,10 @@ public interface RetrofitService {
 
     @GET("/userservice/{userId}/coupons")
     Call<List<Coupon>> getCouponsByUserId(@Header("Authorization")String jwt, @Path("userId") String userId);
+
+    @GET("/userservice/post/{userId}")
+    Call<List<ResponseMyPostDto>> getUsersPost(@Header("Authorization") String jwt, @Path("userId") String userId);
+
+    @GET("/userservice/postdetail/{id}")
+    Call<PostDetailDto> getPostDetails(@Header("Authorization") String jwt, @Path("id") Long id);
 }

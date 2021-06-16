@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:orientation="vertical"
+    android:id="@+id/contentLinear"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:id="@+id/layoutmypage"
+
     android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_fileName="search.json"
+
+
+        />
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -33,7 +43,6 @@
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/baemin"
-            android:text="Id들어갈 곳입니닷"
             android:layout_weight="1"
             />
         <LinearLayout
@@ -47,7 +56,6 @@
                 android:layout_height="100dp"
                 android:id="@+id/userprofileimage"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/kinopico"
                 />
 
             <Button
@@ -98,6 +106,29 @@
                 android:gravity="center_vertical"
                 android:text="0"
                 android:textSize="20sp"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원님이 작성한 스토리에요"
+                android:textAlignment="center"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myposts"
 
                 />
 
