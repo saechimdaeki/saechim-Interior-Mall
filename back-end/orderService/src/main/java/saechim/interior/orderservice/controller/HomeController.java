@@ -1,4 +1,4 @@
-package saechim.interior.homeservice.controller;
+package saechim.interior.orderservice.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

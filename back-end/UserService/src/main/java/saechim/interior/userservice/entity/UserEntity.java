@@ -52,6 +52,8 @@ public class UserEntity implements Serializable {
 
 
 
+
+
     @Builder
     public UserEntity(String name, String email, String userId, String encryptedPwd, String phoneNumber, byte[] userPic) {
         this.name = name;

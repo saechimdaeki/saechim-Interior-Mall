@@ -74,7 +74,7 @@ public class UserController {
 
     @GetMapping("/postdetail/{id}")
     public ResponseEntity<?> getPost(@PathVariable Long id){
-        return ResponseEntity.ok(userService.getPostDetails(id));
+        return ResponseEntity.ok(userService.getPos tDetails(id));
     }
 
 

@@ -15,26 +15,25 @@ import saechim.interior.etcservice.repository.ConstructQuestRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
 public class QuestService {
-    private final ConstructQuestRepository consturctQuestRepository;
+    private final ConstructQuestRepository constructQuestRepository;
     private final ModelMapper mapper;
 
     @Transactional
     public String createQuest(QuestDto dto){
         ConstructQuest constructQuest = QuestDto.toEntity(dto);
-        ConstructQuest entity = consturctQuestRepository.save(constructQuest);
+        ConstructQuest entity = constructQuestRepository.save(constructQuest);
         return entity.getTitle();
     }
 
     @Transactional(rollbackFor = RuntimeException.class)
     public ResponseQuestDto addPictures(Long questId, MultipartFile[] files) throws IOException {
-        ConstructQuest constructQuest = consturctQuestRepository.findById(questId).orElseThrow(RuntimeException::new);
+        ConstructQuest constructQuest = constructQuestRepository.findById(questId).orElseThrow(RuntimeException::new);
         ArrayList<byte[]> filesData=new ArrayList<>();
         for (MultipartFile file : files) {
             filesData.add(file.getBytes());
@@ -44,6 +43,6 @@ public class QuestService {
     }
 
     public Page<ResponseQuestDto> retrieveRequestQuestList(Pageable pageable){
-        return consturctQuestRepository.retrieveQuestList(pageable);
+        return constructQuestRepository.retrieveQuestList(pageable);
     }
 }

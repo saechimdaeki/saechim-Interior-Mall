@@ -23,14 +23,14 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/userservice/(?<segment>.*), /$\{segment}
 
-        - id: homeService
-          uri: lb://HOMESERVICE
+        - id: orderService
+          uri: lb://ORDERSERVICE
           predicates:
-            - Path=/homeservice/**
+            - Path=/orderService/**
             - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/homeservice/(?<segment>.*), /$\{segment}
+            - RewritePath=/orderService/(?<segment>.*), /$\{segment}
 
         - id: categoryService
           uri: lb://CATEGORYSERVICE

@@ -1,4 +1,4 @@
-package saechim.interior.homeservice.entity;
+package saechim.interior.orderservice.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

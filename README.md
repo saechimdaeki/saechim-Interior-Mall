@@ -30,8 +30,6 @@ And frontend is a [Android](https://developer.android.com/) application built us
 
 ## The [h2](https://h2database.com/h2-2019-10-14.zip) database must be executed before performing the following command.
 
-## 
-
 ---
 
 ### Procedures for executing this project It is currently under development and may be added further.  ex) kafka, zookeeper
@@ -41,13 +39,13 @@ And frontend is a [Android](https://developer.android.com/) application built us
    ```
    After executing the h2 database, the following command must be performed on JDBC URL:
    
-   jdbc:h2:~/homeservice
+   jdbc:h2:~/orderservice
    jdbc:h2:~/categoryservice
    jdbc:h2:~/userservice
    jdbc:h2:~/storyservice
    jdbc:h2:~/etcservice
    
-   Confirm creating ~/homeservice.mv.db file
+   Confirm creating ~/orderservice.mv.db file
    Confirm creating ~/categoryservice.mv.db file
    Confirm creating ~/userservice.mv.db file
    Confirm creating ~/storyservice.mv.db file
