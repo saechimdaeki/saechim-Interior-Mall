@@ -61,10 +61,10 @@ public class MyStoryAdapter extends RecyclerView.Adapter<MyStoryAdapter.ItemView
         void onBind(ResponseMyPostDto data){
             idText.setText(String.valueOf(data.getId()));
             userIdText.setText(data.getUserId());
-            typeText.append(data.getType());
+            typeText.setText(data.getType());
             titleText.setText(data.getTitle());
             contentText.setText(data.getContent());
-            postViewText.append(String.valueOf(data.getPostView()));
+            postViewText.setText(String.valueOf(data.getPostView()));
         }
     }
 }

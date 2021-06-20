@@ -31,28 +31,54 @@
             android:textStyle="bold"/>
 
 
-
-        <TextView
-            android:layout_marginTop="6dp"
-            android:id="@+id/TypeText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:text="타입: "
-            android:textSize="13dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
             <TextView
                 android:layout_marginTop="6dp"
-                android:id="@+id/PostView"
-                android:text="조회 수 :"
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="타입: "
+                android:textSize="13dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_marginTop="6dp"
+                android:id="@+id/TypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="13dp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginTop="6dp"
+                android:text="조회 수 :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_marginTop="6dp"
+                android:id="@+id/PostView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

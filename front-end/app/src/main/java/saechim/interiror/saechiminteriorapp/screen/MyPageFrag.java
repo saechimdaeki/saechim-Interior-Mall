@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.dd.processbutton.iml.ActionProcessButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -52,14 +54,13 @@ public class MyPageFrag extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     LinearLayoutManager linearLayoutManager;
-    MyStoryAdapter myStoryAdapter=new MyStoryAdapter();
+    MyStoryAdapter myStoryAdapter;
     String id;
     LottieAnimationView lottie;
-    @Override
-    public void onAttach(@NonNull Context context) {
-
-        super.onAttach(context);
-    }
+    private ActionProcessButton btsCallMorePost;
+    List<ResponseMyPostDto> responseMyPostDtos=new ArrayList<>();
+    int total;
+    int moreCnt=1,now=2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +75,8 @@ public class MyPageFrag extends Fragment {
         lottie.playAnimation();
         lottie.loop(true);
         startLoading();
-
+        myStoryAdapter=new MyStoryAdapter();
+        btsCallMorePost=view.findViewById(R.id.buttonCallMorePosts);
         userProfileImage=view.findViewById(R.id.userprofileimage);
         idTextView=view.findViewById(R.id.textId);
         editProfileButton=view.findViewById(R.id.profileEditButton);
@@ -92,6 +94,23 @@ public class MyPageFrag extends Fragment {
         new GetCoupons().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"");
         new GetUserInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"");
         new getMyStory().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"");
+        btsCallMorePost.setOnClickListener(v -> {
+            int temp=0;
+            for(int i=now; i<responseMyPostDtos.size(); i++){
+                if(temp==2)
+                    break;
+                myStoryAdapter.addItem(responseMyPostDtos.get(i));
+                Log.d("값좀보자", String.valueOf(responseMyPostDtos.get(i).getPostView()));
+                myStoryAdapter.notifyDataSetChanged();
+                temp++;
+            }
+            moreCnt++;
+            if(now<responseMyPostDtos.size()) {
+                btsCallMorePost.setText(new StringBuilder().append("더보기 : (").append(moreCnt).append("/").append(total).append(")").toString());
+                now+=2;
+            }
+        });
+
         return view;
     }
 
@@ -161,10 +180,16 @@ public class MyPageFrag extends Fragment {
                 @Override
                 public void onResponse(Call<List<ResponseMyPostDto>> call, Response<List<ResponseMyPostDto>> response) {
                     if (response.isSuccessful()) {
-                        List<ResponseMyPostDto> body = response.body();
-                        for (ResponseMyPostDto responseMyPostDto : body) {
-                            myStoryAdapter.addItem(responseMyPostDto);
-                            myStoryAdapter.notifyDataSetChanged();
+                        responseMyPostDtos= response.body();
+                        int cnt=0;
+                        if (responseMyPostDtos != null && responseMyPostDtos.size() > 0) {
+                            for (ResponseMyPostDto responseMyPostDto : responseMyPostDtos) {
+                                if (cnt == 2) break;
+                                myStoryAdapter.addItem(responseMyPostDto);
+                                myStoryAdapter.notifyDataSetChanged();
+                                cnt++;
+                            }
+                            total = responseMyPostDtos.size() % 2 == 0 ? responseMyPostDtos.size() / 2 : (responseMyPostDtos.size() / 2) + 1;
                         }
                     }
                 }
