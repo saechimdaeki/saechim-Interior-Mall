@@ -22,8 +22,8 @@ import java.util.UUID;
 public class InteriorEntity implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "interior_id")
-    private Long id;
+    @Column(name = "interior_no")
+    private Long no;
 
     private String interiorId;
 

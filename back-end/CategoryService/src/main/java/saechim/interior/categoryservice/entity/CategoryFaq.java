@@ -22,7 +22,7 @@ public class CategoryFaq extends BaseEntity{
     private String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interior_id")
+    @JoinColumn(name = "interior_no")
     @JsonBackReference
     private InteriorEntity interiorEntity;
 }

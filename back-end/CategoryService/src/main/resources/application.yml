@@ -5,15 +5,21 @@ spring:
   application:
     name: categoryService
   datasource:
-    url: jdbc:h2:tcp://localhost/~/categoryservice
+    url: jdbc:h2:~/categoryservice
     username: sa
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       show_sql: true
       format_sql: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 
 eureka:
   instance:

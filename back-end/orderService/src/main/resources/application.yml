@@ -5,7 +5,7 @@ spring:
   application:
     name: orderService
   datasource:
-    url: jdbc:h2:tcp://localhost/~/homeservice
+    url: jdbc:h2:~/orderservice
     username: sa
     password:
   jpa:
@@ -14,7 +14,13 @@ spring:
     properties:
       show_sql: true
       format_sql: true
-
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: saechim-interior
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -23,3 +29,5 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8888/eureka
+logging:
+  level: debug
