@@ -58,7 +58,7 @@ public class InteriorEntity implements Serializable {
     @Builder
     public InteriorEntity(InteriorType interiorType, String title, String brandName, String seller, Integer stock,
                           Integer price){
-        this.interiorId= RandomStringUtils.random(6);
+        this.interiorId= UUID.randomUUID().toString().substring(0,6);
         this.interiorType=interiorType;
         this.title=title;
         this.brandName=brandName;

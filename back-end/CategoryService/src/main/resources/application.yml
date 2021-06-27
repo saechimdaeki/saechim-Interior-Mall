@@ -5,7 +5,7 @@ spring:
   application:
     name: categoryService
   datasource:
-    url: jdbc:h2:~/categoryservice
+    url: jdbc:h2:tcp://localhost/~/cts
     username: sa
     password:
   jpa:
@@ -19,6 +19,10 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 1
+  h2:
+    console:
+      enabled: true
 
 
 eureka:

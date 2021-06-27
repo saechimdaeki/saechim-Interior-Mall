@@ -5,22 +5,23 @@ spring:
   application:
     name: orderService
   datasource:
-    url: jdbc:h2:~/orderservice
+    url: jdbc:h2:~/order
     username: sa
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       show_sql: true
       format_sql: true
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: saechim-interior
-      auto-offset-reset: latest
+      group-id: computerkjs123
+      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 1000000000
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
@@ -30,4 +31,5 @@ eureka:
     service-url:
       defaultZone: http://localhost:8888/eureka
 logging:
-  level: debug
+  level:
+    saechim.interior.orderservice: debug

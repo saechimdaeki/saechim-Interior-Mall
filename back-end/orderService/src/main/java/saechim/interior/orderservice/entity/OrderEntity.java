@@ -11,15 +11,16 @@ import java.util.UUID;
 
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Order extends BaseEntity implements Serializable {
+public class OrderEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "orderNo")
+    private Long no;
 
     private String interiorId;
 
-    private Integer qty;
+    private Integer qty; //여기서는 주문수
 
     private Integer unitPrice;
 
@@ -30,11 +31,11 @@ public class Order extends BaseEntity implements Serializable {
     private String orderId;
 
     @Builder
-    public Order(String interiorId, Integer qty, Integer unitPrice, String userId){
+    public OrderEntity(String interiorId, Integer qty, Integer unitPrice, Integer totalPrice, String userId){
         this.interiorId=interiorId;
         this.qty=qty;
         this.unitPrice=unitPrice;
-        this.totalPrice= (qty*unitPrice);
+        this.totalPrice= totalPrice;
         this.userId=userId;
         this.orderId= UUID.randomUUID().toString().substring(0,8);
     }

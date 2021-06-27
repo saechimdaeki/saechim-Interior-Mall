@@ -32,7 +32,7 @@ And frontend is a [Android](https://developer.android.com/) application built us
 
 ---
 
-### Procedures for executing this project It is currently under development and may be added further.  ex) kafka, zookeeper
+### Procedures for executing this project It is currently under development and may be added further.  ex) circuitBreaker
 
 1. h2 database setting
 
@@ -68,10 +68,12 @@ And frontend is a [Android](https://developer.android.com/) application built us
 
    ```
    These two should be executed in order, and after that, it doesn't matter which one is executed first.
-   
-   1. cd EurekaServer   ./gradlew bootRun
-   2. cd GatewayServer ./gradlew bootRun
-   3. ~~~~ 
+   1. run h2 binary database
+   2. brew services start zookeeper
+   3. brew services start kafka
+   4. cd EurekaServer   ./gradlew bootRun
+   5. cd GatewayServer ./gradlew bootRun
+   6. ~~~~ 
    ```
 
 4. Lauch Android app
