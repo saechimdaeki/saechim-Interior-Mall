@@ -30,7 +30,7 @@ public class OrderService {
 //        log.debug("\n categoryFaqDto = {} ",categoryFaqDto.toString());
 //    }
 
-    @KafkaListener(topics = "saechimkjs", groupId = "computerkjs123")
+    @KafkaListener(topics = "interiorDto", groupId = "saechimdaeki")
     public void retrieveInteriorOrderProcess(String message){
         KafkaOrderDto kafkaOrderDto = KafkaOrderDto.builder().build();
         try{

@@ -49,7 +49,9 @@ public class CategoryController {
     }
 
     @PostMapping("/interior/{interiorId}")
-    public ResponseEntity<?> orderInteriorProduct(@PathVariable String interiorId, @RequestParam("count") int orderCnt ,@RequestParam("userId") String userId){
+    public ResponseEntity<?> orderInteriorProduct(@PathVariable String interiorId,
+                                                  @RequestParam("count") int orderCnt ,
+                                                  @RequestParam("userId") String userId){
         KafkaOrderDto kafkaOrderDto = interiorService.orderInteriorProduct(interiorId, orderCnt,userId);
         String json="";
         try{
@@ -57,7 +59,7 @@ public class CategoryController {
         }catch (JsonProcessingException ex){
             log.debug("\n kafkaOrderDto Error : {} ",ex.toString());
         }
-        this.kafkaTemplate.send("saechimkjs",json);
+        this.kafkaTemplate.send("interiorDto",json);
         return ResponseEntity.status(HttpStatus.OK).body(kafkaOrderDto);
     }
 
