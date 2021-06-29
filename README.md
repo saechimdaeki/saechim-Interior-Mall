@@ -64,17 +64,23 @@ And frontend is a [Android](https://developer.android.com/) application built us
    
    ```
 
-3. Lauch springboot app
+3. Download binary kafka [downloadLink](https://kafka.apache.org/downloads)
+
+4. Lauch springboot app
 
    ```
-   These two should be executed in order, and after that, it doesn't matter which one is executed first.
+   These three should be executed in order, and after that, it doesn't matter which one is executed first.
    1. run h2 binary database
-   2. brew services start zookeeper
-   3. brew services start kafka
+   2. ./bin/zookeeper-server-start.sh ./config/zookeeper.properties (execute zookeeper)
+   3. ./bin/kafka-server-start.sh ./config/server.properties (execute kafka)
    4. cd EurekaServer   ./gradlew bootRun
-   5. cd GatewayServer ./gradlew bootRun
-   6. ~~~~ 
+   5. cd GatewayService ./gradlew bootRun
+   6. cd userService ./gradlew bootRun
+   7. cd EtcService ./gradlew bootRun
+   8. cd StoryService ./gradlew bootRun
+   9. cd orderServcie ./gradlew bootRun
+   10. cd CategoryService ./gradlew bootRun
    ```
 
-4. Lauch Android app
+5. Lauch Android app
 
