@@ -38,7 +38,7 @@ public class OrderService {
         }catch (JsonProcessingException ex){
             ex.printStackTrace();
         }
-        log.debug("\n kafkaOrderDto = {} ",kafkaOrderDto.toString());
+        log.info("\n kafkaOrderDto = {} ",kafkaOrderDto.toString());
         OrderEntity orderEntity = OrderEntity.builder()
                 .interiorId(kafkaOrderDto.getInteriorId())
                 .qty(kafkaOrderDto.getOrderCnt())

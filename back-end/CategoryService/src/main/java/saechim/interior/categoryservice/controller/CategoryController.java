@@ -29,7 +29,6 @@ public class CategoryController {
 
     // todo 유저가 주문한 리스트 유저마이크로서비스에 보내고
     // todo orderservice에 저장시키자.
-    private final KafkaTemplate<String, String> kafkaTemplate;
 
 //    @PostMapping("/kafka") //kafka Test
 //    public void test(@RequestBody CategoryFaqDto message){
@@ -52,14 +51,7 @@ public class CategoryController {
     public ResponseEntity<?> orderInteriorProduct(@PathVariable String interiorId,
                                                   @RequestParam("count") int orderCnt ,
                                                   @RequestParam("userId") String userId){
-        KafkaOrderDto kafkaOrderDto = interiorService.orderInteriorProduct(interiorId, orderCnt,userId);
-        String json="";
-        try{
-            json=objectMapper.writeValueAsString(kafkaOrderDto);
-        }catch (JsonProcessingException ex){
-            log.debug("\n kafkaOrderDto Error : {} ",ex.toString());
-        }
-        this.kafkaTemplate.send("interiorDto",json);
+        Object kafkaOrderDto = interiorService.orderInteriorProduct(interiorId, orderCnt,userId);
         return ResponseEntity.status(HttpStatus.OK).body(kafkaOrderDto);
     }
 
@@ -69,3 +61,4 @@ public class CategoryController {
     }
 
 }
+
