@@ -21,6 +21,8 @@
   - StoryService
   - EtcService
 
+## [This is my blog that recorded the development.](https://blog.naver.com/anima94/222373681576)
+
 ## Running saechim-Interior-Mall locally
 saechim-Interior-Mall backend is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Gradle](https://spring.io/guides/gs/gradle/). 
 
